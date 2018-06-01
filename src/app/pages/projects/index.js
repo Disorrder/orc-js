@@ -22,21 +22,28 @@ export default {
         }
     },
     methods: {
-        createProject() {
-
-        },
+        // createProject() {
+        //
+        // },
         openProject() {
-            var res = dialog.showOpenDialog({properties: ['openFile', 'openDirectory']});
-            if (!res) return;
-            var folder = res[0];
-            if (!fs.lstatSync(folder).isDirectory()) folder = path.dirname(folder);
+            var file = dialog.showOpenDialog({
+                properties: ['openFile'],
+                filters: [{name: 'JavaScript', extensions: ['js']}]
+            });
+            if (!file || !file.length) return;
+            if (Array.isArray(file)) file = file[0];
+            var projectName = path.basename(file);
+            if (projectName === 'index.js') {
+                let folder = path.join(file, '..');
+                projectName = path.basename(folder);
+            }
 
-            var project = this.projects.find((v) => v.path === folder);
+            var project = this.projects.find((v) => v.path === file);
             if (!project) {
                 project = {
-                    id: folder.hashCode().toString(36),
-                    name: path.basename(folder),
-                    path: folder,
+                    id: file.hashCode().toString(36),
+                    name: projectName,
+                    path: file,
                     scnenes: [],
                 };
                 this.$store.commit('addProject', project);

@@ -19,6 +19,10 @@ export default {
             if (!id) id = this.$route.params.id;
             return this.projects.find((v) => v.id === id);
         },
+        runScript() {
+            delete window.require.cache[this.project.path];
+            this.script = window.require(this.project.path);
+        }
     },
     created() {
         this.project = this.getProject();
