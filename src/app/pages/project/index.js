@@ -25,6 +25,8 @@ export default {
         }
     },
     created() {
+        window.require('./lib'); // require to node.js context from .build folder
+        
         this.project = this.getProject();
         this.project.lastOpened = Date.now();
 

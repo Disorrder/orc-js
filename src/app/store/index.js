@@ -5,6 +5,7 @@ Vue.use(Vuex);
 var store = new Vuex.Store({
     state: {
         projects: JSON.parse( localStorage.getItem('projects') ) || [],
+        settings: JSON.parse( localStorage.getItem('settings') ),
     },
     mutations: {
         addProject(state, val) {
@@ -27,6 +28,17 @@ var store = new Vuex.Store({
             state.projects = val;
             localStorage.projects = JSON.stringify(state.projects);
         },
+
+        saveSettings(state, val) {
+            state.settings = val;
+            localStorage.settings = JSON.stringify(state.settings);
+        },
+        resetSettings(state) {
+            state.settings = {
+
+            };
+            localStorage.settings = JSON.stringify(state.settings);
+        }
     },
 });
 
