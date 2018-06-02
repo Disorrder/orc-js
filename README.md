@@ -2,6 +2,17 @@
 We will never be slaves!
 При первом запуске и для обновления зависимостей - `npm i`
 
+## Native modules support
+Run this in PowerShell with Administrator:
+ - `npm install --global --production windows-build-tools`
+ Make sure Python and Visual C++ Build Tools installed successfully
+ - `npm i -g node-gyp`
+ - `set PYTHON=%USERPROFILE%\.windows-build-tools\python27\python.exe`
+ - `npm i`
+ - `.\node_modules\.bin\electron-rebuild.cmd` - после каждой установки нативного модуля
+
+Can help: http://stackoverflow.com/questions/32556295/npm-install-error-the-build-tools-for-v120-platform-toolset-v120-cannot
+
 ## Development
 Необходимо запустить 2 процесса параллельно:
 `npm run dev` - динамическая сборка
