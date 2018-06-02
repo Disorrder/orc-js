@@ -1,7 +1,9 @@
 const process = require('process');
 console.log('Hello, world!', 'Node', process.version);
 
-// const robot = require('robot-js');
 var {robot} = global.libs;
+var {Mouse} = robot;
+require("@disorrder/animated");
 
-console.log('Robot', robot);
+var mouse = Mouse();
+var mouseCursor = {x: 500, y: 300};
