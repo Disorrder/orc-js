@@ -4,11 +4,13 @@
   "description": "One Ridiculous Clicker with Electron",
   "main": "main.js",
   "scripts": {
+    "//postinstall": "electron-builder install-app-deps",
     "start": "electron .",
     "dev": "webpack --watch",
     "build": "webpack",
-    "build-app": "build -w --ia32",
-    "build-app64": "build -w --x64"
+    "build-win32": "npm run rebuild && build -w --ia32",
+    "build-win64": "npm run rebuild && build -w --x64",
+    "rebuild": "electron-rebuild -f"
   },
   "keywords": [
     "Electron",
@@ -23,6 +25,7 @@
     "copy-webpack-plugin": "^4.5.1",
     "css-loader": "^0.28.11",
     "electron": "^2.0.0",
+    "electron-builder": "^20.15.1",
     "electron-rebuild": "^1.7.3",
     "file-loader": "^1.1.11",
     "fontgen-loader": "^0.2.1",
@@ -50,10 +53,11 @@
   },
   "build": {
     "appId": "app.id",
+    "npmRebuild": false,
     "win": {
       "artifactName": "${productName}_v${version}_${arch}.${ext}",
       "target": "portable",
-      "icon": "src/assets/smorc.jpg"
+      "icon": "src/assets/TueEARS.png"
     }
   }
 }

@@ -32,20 +32,20 @@ export default {
             });
             if (!file || !file.length) return;
             if (Array.isArray(file)) file = file[0];
-            var projectName = path.basename(file);
-            if (projectName === 'index.js') {
-                let folder = path.join(file, '..');
-                projectName = path.basename(folder);
-            }
 
             var project = this.projects.find((v) => v.path === file);
             if (!project) {
                 project = {
                     id: file.hashCode().toString(36),
-                    name: projectName,
+                    name: path.basename(file),
                     path: file,
                     scnenes: [],
                 };
+                if (project.name === 'index.js') {
+                    let folder = path.join(file, '..');
+                    project.name = path.basename(folder);
+                    // project.isFolder
+                }
                 this.$store.commit('addProject', project);
             }
             this.selectProject(project);

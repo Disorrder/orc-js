@@ -2,7 +2,7 @@ doctype html 5
 html
     head
         meta(charset="utf-8")
-        //- link(rel="shortcut icon" href="favicon.ico" type="image/x-icon")
+        link(rel="shortcut icon" href="favicon.ico" type="image/x-icon")
         //- script(src="/config.js")
         link(rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons")
         title We will never be slaves!
@@ -12,7 +12,7 @@ html
             //- v-navigation-drawer(app)
             v-toolbar(app height="36")
                 v-toolbar-items
-                    v-btn(:to="{name: 'main'}" exact) Home
+                    //- v-btn(:to="{name: 'main'}" exact) Home
                     v-btn(:to="{name: 'projects'}") Projects
             v-content(dark)
                 router-view

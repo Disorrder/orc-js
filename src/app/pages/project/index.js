@@ -1,6 +1,5 @@
 import './style.styl';
 
-const glob = window.require('globby');
 const fs = window.require('fs');
 const path = window.require('path');
 
@@ -9,10 +8,13 @@ export default {
     data() {
         return {
             project: null,
+            sourceCode: '',
+            stdout: '',
         }
     },
     computed: {
         projects() { return this.$store.state.projects; },
+        isFolder() { return !/\.js$/.test(this.project.name); }
     },
     methods: {
         getProject(id) {
@@ -22,14 +24,20 @@ export default {
         runScript() {
             delete window.require.cache[this.project.path];
             this.script = window.require(this.project.path);
-        }
+        },
+
+        updateSrc() {
+            this.sourceCode = fs.readFileSync(this.project.path, 'utf-8');
+        },
     },
     created() {
         window.require('./lib'); // require to node.js context from .build folder
-        
+
         this.project = this.getProject();
         this.project.lastOpened = Date.now();
 
         this.$store.commit('updateProject', this.project);
+
+        setInterval(this.updateSrc.bind(this), 1000);
     }
 };

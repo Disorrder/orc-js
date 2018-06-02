@@ -2,6 +2,21 @@ v-container#project(grid-list-md)
     h3 Project: {{project.name}}
     hr
     div
-        v-btn(color="info" @click="runScript")
-            v-icon.mr-2 play_circle_outline
-            span Запустить скрипт
+        v-layout(row justify-center)
+            v-flex(xs4)
+                v-btn(color="info" @click="runScript")
+                    v-icon.mr-2 play_circle_outline
+                    span Запустить скрипт
+
+        v-layout(row): v-flex(xs12)
+            v-expansion-panel(popout)
+                v-expansion-panel-content(v-if="!isFolder" @click="updateSrc")
+                    div(slot="header") Посмотреть код
+                    v-card.card-source
+                        v-card-text: pre {{sourceCode}}
+                v-expansion-panel-content
+                    div(slot="header") Консоль
+                    v-card.card-console
+                        v-card-text
+                            pre(v-if="stdout") {{stdout}}
+                            div.text-xs-center.grey--text(v-if="!stdout") Пока не реализовано

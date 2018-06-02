@@ -15,7 +15,7 @@ function createWindow () {
   // Create the browser window.
   // let screenSize = electron.screen.getPrimaryDisplay().size;
   mainWindow = new BrowserWindow({width: 1000, height: 700});
-
+  // mainWindow.webContents.openDevTools();
   // and load the index.html of the app.
   mainWindow.loadURL(url.format({
     pathname: path.join(__dirname, '.build/index.html'),
