@@ -2,7 +2,42 @@ $root = '../../../'
 @require $root + 'app/mixins.styl'
 
 #project
+    .buttons
+        // button
+        //     width 100%
+        //     margin 0
+
+
     .expansion-panel
         .card__text
             max-height 70%
             overflow auto
+
+    .btn-wrapper
+        & > button
+            min-width 36px
+            width 100%
+            margin 0
+
+        &.square
+            width 36px + 4*2
+            flex-grow 0
+
+            .btn__title
+                display none
+
+    // &.state-ready
+    //     .buttons
+    //         .btn-stop
+    //             width 2.5em
+    //             min-width 2.5em
+    //             .btn__title
+    //                 display none
+    //
+    // &.state-progress
+    //     .buttons
+    //         .btn-play
+    //             width 2.5em
+    //             min-width 2.5em
+    //             .btn__title
+    //                 display none

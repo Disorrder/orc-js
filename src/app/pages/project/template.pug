@@ -1,22 +1,29 @@
-v-container#project(grid-list-md)
-    h3 Project: {{project.name}}
-    hr
-    div
+v-container#project(grid-list-md :class="'state-'+state")
+    v-layout(row): v-flex(xs12)
+        h3 Project: {{project.name}}
+        hr
+    v-layout._toolbar(row justify-center): v-flex(xs10 sm8 md6)
         v-layout(row justify-center)
-            v-flex(xs4)
-                v-btn(color="info" @click="runScript")
-                    v-icon.mr-2 play_circle_outline
-                    span Запустить скрипт
+            v-flex.btn-wrapper.animated(:class="{square: state === 'progress'}")
+                v-btn.btn-play(color="info" @click="runScriptWorker" :disabled="state === 'progress'")
+                    v-icon play_circle_outline
+                    span.btn__title.ml-2 Запустить скрипт
+            
+            v-flex.btn-wrapper.animated(:class="{square: state !== 'progress'}")
+                v-btn.btn-stop(color="warning" @click="stopScript" :disabled="state !== 'progress'")
+                    v-icon pause_circle_outline
+                    span.btn__title.ml-2 Остановить скрипт
+        //- v-flex(xs9 sm4 md3)
 
-        v-layout(row): v-flex(xs12)
-            v-expansion-panel(popout)
-                v-expansion-panel-content(v-if="!isFolder" @click="updateSrc")
-                    div(slot="header") Посмотреть код
-                    v-card.card-source
-                        v-card-text: pre {{sourceCode}}
-                v-expansion-panel-content
-                    div(slot="header") Консоль
-                    v-card.card-console
-                        v-card-text
-                            pre(v-if="stdout") {{stdout}}
-                            div.text-xs-center.grey--text(v-if="!stdout") Пока не реализовано
+    v-layout(row): v-flex(xs12)
+        v-expansion-panel(popout)
+            v-expansion-panel-content(v-if="!isFolder" :value="panels.source" @click="updateSrc")
+                div(slot="header") Посмотреть код
+                v-card.card-source
+                    v-card-text: pre {{sourceCode}}
+            v-expansion-panel-content(:value="panels.console")
+                div(slot="header") Консоль
+                v-card.card-console
+                    v-card-text
+                        pre(v-if="stdout") {{stdout}}
+                        div.text-xs-center.grey--text(v-if="!stdout") Пусто
