@@ -20,7 +20,10 @@ export default {
     },
     computed: {
         projects() { return this.$store.state.projects; },
-        isFolder() { return !/\.js$/.test(this.project.name); }
+        isFolder() { return !/\.js$/.test(this.project.name); },
+        // low-level stuff
+        isAsar() { return fs.existsSync('resources\\app.asar'); },
+        cwd() { return this.isAsar ? 'resources/app.asar/' : ''; }
     },
     methods: {
         getProject(id) {
@@ -39,10 +42,10 @@ export default {
 
             // return setTimeoutPromise(300).then(() => {
             setTimeout(() => { // wait for buttons animation
-                console.log('Run script', Date.now());
-                var child = child_process.fork('.build/lib/worker', [this.project.path], {silent: true});
+                console.info('Run script', Date.now());
+                var child = child_process.fork(this.cwd+'.build/lib/worker', [this.project.path], {silent: true});
                 child.on('close', (code) => {
-                    console.log('Finish script', Date.now());
+                    console.info('Finish script', Date.now());
                     this.state = 'ready';
                 });
                 child.stdout.on('data', (data) => {
@@ -50,7 +53,12 @@ export default {
                     this.stdout += data.toString();
                     console.log('stdout:', data.toString());
                 });
-                console.log(child);
+                child.stderr.on('data', (data) => {
+                    this.panels.console = true;
+                    this.stdout += data.toString();
+                    console.log('stderr:', data.toString());
+                });
+                // console.log('req path0', window.require.main.paths[0]);
                 return this.scriptWorker = child;
             }, 250);
         },
