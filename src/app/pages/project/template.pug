@@ -5,7 +5,7 @@ v-container#project(grid-list-md :class="'state-'+state")
     v-layout._toolbar(row justify-center): v-flex(xs10 sm8 md6)
         v-layout(row justify-center)
             v-flex.btn-wrapper.animated(:class="{square: state === 'progress'}")
-                v-btn.btn-play(color="info" @click="runScriptWorker" :disabled="state === 'progress'")
+                v-btn.btn-play(color="info" @click="runScriptThread" :disabled="state === 'progress'")
                     v-icon play_circle_outline
                     span.btn__title.ml-2 Запустить скрипт
             

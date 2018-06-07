@@ -36,36 +36,37 @@ export default {
             this.script = window.require(this.project.path);
             console.log('end script', Date.now());
         },
-        runScriptWorker() {
+        runScriptThread() {
             if (this.state === 'progress') return;
             this.state = 'progress';
 
             // return setTimeoutPromise(300).then(() => {
             setTimeout(() => { // wait for buttons animation
                 console.info('Run script', Date.now());
-                var child = child_process.fork(this.cwd+'.build/lib/worker', [this.project.path], {silent: true});
-                child.on('close', (code) => {
+                var thread = child_process.fork(this.cwd+'.build/lib/worker', [this.project.path], {silent: true});
+                thread.on('close', (code) => {
                     console.info('Finish script', Date.now());
                     this.state = 'ready';
                 });
-                child.stdout.on('data', (data) => {
+                thread.stdout.on('data', (data) => {
                     this.panels.console = true;
                     this.stdout += data.toString();
                     console.log('stdout:', data.toString());
                 });
-                child.stderr.on('data', (data) => {
+                thread.stderr.on('data', (data) => {
                     this.panels.console = true;
                     this.stdout += data.toString();
                     console.log('stderr:', data.toString());
                 });
-                // console.log('req path0', window.require.main.paths[0]);
-                return this.scriptWorker = child;
+
+                thread.send('start');
+                return this.scriptThread = thread;
             }, 250);
         },
 
         stopScript() {
             console.log('STOP');
-            this.scriptWorker.kill();
+            this.scriptThread.kill();
         },
 
         updateSrc() {
