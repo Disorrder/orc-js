@@ -6,4 +6,13 @@ class Thread {
         this.process = child_process.fork(file, attrs, {silent: true});    
         // TODO: add ee, pass events
     }
+
+    runScript(file) {
+        
+    }
+
+    close() {
+        this.process.kill();
+        return this;
+    }
 }
