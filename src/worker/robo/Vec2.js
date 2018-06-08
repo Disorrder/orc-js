@@ -64,3 +64,5 @@ class Vec2 {
         return new Vec2().copy(this);
     }
 }
+
+module.exports = Vec2;

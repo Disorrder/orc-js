@@ -66,3 +66,9 @@ class Mouse {
         return this;
     }
 }
+
+module.exports = Mouse;
+
+class _Mouse extends robot.Mouse {
+    
+}

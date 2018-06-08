@@ -1,4 +1,13 @@
-require('./index');
+const robot = require('robot-js');
+const robo = require('./robo');
+
+global.libs = {
+    robot,
+    robo,
+};
+// TODO: подключать упрощённый синтаксис, если включена галочка в настройках
+require('./robo/global');
+
 
 var settings = {};
 

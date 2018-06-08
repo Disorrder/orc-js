@@ -43,7 +43,7 @@ export default {
             // return setTimeoutPromise(300).then(() => {
             setTimeout(() => { // wait for buttons animation
                 console.info('Run script', Date.now());
-                var thread = child_process.fork(this.cwd+'.build/lib/worker', [this.project.path], {silent: true});
+                var thread = child_process.fork(this.cwd+'.build/worker', [this.project.path], {silent: true});
                 thread.on('close', (code) => {
                     console.info('Finish script', Date.now());
                     this.state = 'ready';
