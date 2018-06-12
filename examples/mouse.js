@@ -2,20 +2,20 @@ const process = require('process');
 console.log('Hello, world!', 'Node', process.version);
 
 var {robot} = global.libs;
-var {Mouse, Timer} = robot;
+var {Timer} = robot;
 
-var mouse = Mouse();
-var mousePos = Mouse.getPos();
+// var mouse = Mouse();
+var mousePos = mouse.getPosition();
 
 // May be select text
-Mouse.setPos(mousePos.add(0, 200));
+mouse.y += 200; // mouse.setPosition(mousePos.add(0, 200));
 Timer.sleep(500);
-mouse.press(robot.BUTTON_LEFT);
-console.log('mouse click at', Mouse.getPos());
-Mouse.setPos(mousePos.add(0, 350));
+mouse.press(BUTTON_LEFT);
+console.log('mouse click at', mouse.getPosition());
+mouse.y += 150; // mouse.setPosition(mousePos.add(0, 350));
 Timer.sleep(500);
-mouse.scrollV(-4); // down
-mouse.release(robot.BUTTON_LEFT);
+mouse.scroll(-4); // down
+mouse.release(BUTTON_LEFT);
 
 Timer.sleep(100);
-mouse.click(robot.BUTTON_RIGHT);
+mouse.click(BUTTON_RIGHT);

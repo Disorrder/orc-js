@@ -10,11 +10,7 @@ function getBtnCode(name) {
     return buttons[name] || name;
 }
 
-class Mouse {
-    constructor() {
-        this._ref = robot.Mouse();
-    }
-
+class Mouse extends robot.Mouse {
     get x() { return this.getPosition().x; }
     set x(val) { this.setPosition(val, this.y); }
 
@@ -25,7 +21,8 @@ class Mouse {
         return robot.Mouse.getPos();
     }
     setPosition(...attrs) {
-        return robot.Mouse.setPos(...attrs);
+        robot.Mouse.setPos(...attrs);
+        return this;
     }
 
     getState(btn) {
@@ -36,39 +33,38 @@ class Mouse {
     get right() { return this.getState(robot.BUTTON_RIGHT); }
 
     // chain
-    click(btn) {
-        this._ref.click(btn);
+    click(btn = robot.BUTTON_LEFT) {
+        super.click(btn);
         return this;
     }
-    dblclick(btn) {
+
+    press(btn = robot.BUTTON_LEFT) {
+        super.press(btn);
+        return this;
+    }
+
+    release(btn = robot.BUTTON_LEFT) {
+        super.release(btn);
+        return this;
+    }
+
+    scrollV(val) {
+        super.scrollV(val);
+        return this;
+    }
+    scrollH(val) {
+        super.scrollH(val);
+        return this;
+    }
+
+    // new methods
+    dblclick(btn = robot.BUTTON_LEFT) {
         return this.click(btn).click(btn);
-    }
-
-    press(btn) {
-        this._ref.press(btn);
-        return this;
-    }
-
-    release(btn) {
-        this._ref.release(btn);
-        return this;
     }
 
     scroll(val) {
         return this.scrollV(val);
     }
-    scrollV(val) {
-        this._ref.scrollV(val);
-        return this;
-    }
-    scrollH(val) {
-        this._ref.scrollH(val);
-        return this;
-    }
 }
 
 module.exports = Mouse;
-
-class _Mouse extends robot.Mouse {
-    
-}
