@@ -1,10 +1,3 @@
-const process = require('process');
-console.log('Hello, world!', 'Node', process.version);
-
-var {robot} = global.libs;
-var {Timer} = robot;
-
-// var mouse = Mouse();
 var mousePos = mouse.getPosition();
 
 // May be select text
