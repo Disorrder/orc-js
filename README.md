@@ -22,3 +22,11 @@ Can help: http://stackoverflow.com/questions/32556295/npm-install-error-the-buil
 Необходимо запустить 2 команды по очереди:  
 `npm run build` - сборка кода (Webpack)  
 `npm run build-win` - сборка .exe файла  
+
+## OS X
+ - `sudo npm i -g node-gyp`
+ - `node-gyp install`
+ - check XCode: `xcode-select -p`. Can help: http://railsapps.github.io/xcode-command-line-tools.html
+ - `cd node_modules/robot-js`
+ - `make`
+ 

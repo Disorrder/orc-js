@@ -1,4 +1,4 @@
-var mousePos = mouse.getPosition();
+// var mousePos = mouse.getPosition();
 
 // May be select text
 mouse.y += 200; // mouse.setPosition(mousePos.add(0, 200));

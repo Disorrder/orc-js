@@ -19,13 +19,13 @@ class Keyboard extends robot.Keyboard {
 
     keydown(key) {
         key = Keyboard.getCode(key);
-        if (!key) return;
+        if (key == null) return; // 0 is keyCode too ('A' on mac)
         return super.press(key);
     }
 
     keyup(key) {
         key = Keyboard.getCode(key);
-        if (!key) return;
+        if (key == null) return;
         return super.release(key);
     }
 
