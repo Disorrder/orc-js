@@ -18,7 +18,7 @@ class Mouse extends robot.Mouse {
     set y(val) { this.setPosition(this.x, val); }
 
     getPosition() {
-        return robot.Mouse.getPos();
+        return robot.Mouse.getPos(); //? .toVec2(); // mb slower or more memory
     }
     setPosition(...attrs) {
         robot.Mouse.setPos(...attrs);

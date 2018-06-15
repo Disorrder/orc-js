@@ -4,7 +4,7 @@ Object.keys(robot).forEach((k) => {
         global[k] = robot[k];
     }
 });
-['Timer', 'Clipboard', 'Screen', 'Window', 'Memory', 'Module'].forEach((k) => {
+['Timer', 'Clipboard', 'Screen', 'Memory', 'Module'].forEach((k) => {
     global[k] = robot[k];
 });
 
