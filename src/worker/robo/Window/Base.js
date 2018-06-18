@@ -29,8 +29,9 @@ class Window extends robot.Window {
     set topMost(val) { this.setTopMost(val); }
     
     get active() { return Window.getActive().eq(this); }
+    set active(val) { Window.setActive(val ? this : Window.desktop); }
     blur() {
-        Window.setActive(Desktop);
+        Window.setActive(Window.desktop);
         return this;
     }
     focus() {
@@ -41,16 +42,13 @@ class Window extends robot.Window {
     // Bounds
     get top() { return this.getBounds().y; }
     set top(val) {
-        this._bounds = this.getBounds();
-        this._bounds.setTop(val);
+        this._bounds = this.getBounds().setTop(val);
         this.setBounds(this._bounds);
     }
 
     get left() { return this.getBounds().x; }
     set left(val) {
         this._bounds = this.getBounds().setLeft(val);
-        console.log('left', this._bounds);
-        
         this.setBounds(this._bounds);
     }
 
@@ -91,7 +89,7 @@ class Window extends robot.Window {
     
     static find(title) {
         var list = Window.getList(`.*${title}.*`);
-        console.log('LIST:', list);
+        console.log('LIST:', list.map((v) => `${v.hwnd} ${v.title}`));
         if (list.length > 1) console.warn('API WARN: found more than 1 window with title '+title); // experimantal
         return list[0];
     }
@@ -111,8 +109,6 @@ class Window extends robot.Window {
     }
 }
 
-var Desktop = Window.find('Program Manager');
-console.log('Desktop', Desktop);
-
+Window.desktop = Window.find('Program Manager');
 
 module.exports = Window;

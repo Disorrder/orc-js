@@ -7,6 +7,7 @@ Object.keys(robot).forEach((k) => {
 ['Timer', 'Clipboard', 'Screen', 'Memory', 'Module'].forEach((k) => {
     global[k] = robot[k];
 });
+global.clipboard = robot.Clipboard;
 
 var robo = require('./index');
 Object.assign(global, robo);

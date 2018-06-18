@@ -3,7 +3,7 @@ function getWindow() {
     if (!wnd) {
         var pid = Window.open('notepad.exe');
         console.log('Window opened:', pid);
-        Timer.sleep(1500);
+        Timer.sleep(500);
         wnd = Window.findByPid(pid);
     }
     return wnd;
@@ -12,7 +12,8 @@ function getWindow() {
 var wnd = getWindow();
 console.log(wnd.title);
 
-Timer.sleep(1000);
-wnd.blink();
+wnd.active = true;
 
 require('./keyboard');
+
+wnd.minimized = true;

@@ -30,5 +30,3 @@ process.on('message', (message) => {
     // if (message.cmd === 'require') return require(message.module);
     if (message.cmd === 'settings') return settings = message.body;
 });
-
-// exit();

@@ -15,7 +15,8 @@ class Keyboard extends robot.Keyboard {
     set system(val) { val ? this.keydown('sys') : this.keyup('sys'); }
     get win() { return this.system; }
     set win(val) { this.system = val; }
-    // TODO: alias for cmd
+    get cmd() { return this.system; }
+    set cmd(val) { this.system = val; }
 
     keydown(key) {
         key = Keyboard.getCode(key);
@@ -35,7 +36,7 @@ class Keyboard extends robot.Keyboard {
     * holdTime - int. Time to hold all buttons in ms.
     */
     pressKey(key, holdTime) {
-        console.log(`KEYPRESS START [${key}]`, typeof key);
+        // console.log(`KEYPRESS START [${key}]`, typeof key);
         var keys = [];
         if (typeof key === 'number') keys = [key];
         if (typeof key === 'string') keys = key.split(/[+-\s]/g);
