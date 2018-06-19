@@ -14,3 +14,6 @@ Object.assign(global, robo);
 
 global.mouse = new Mouse();
 global.keyboard = new Keyboard();
+if (Screen.synchronize()) {
+    global.mainScreen = Screen.getMain();
+}

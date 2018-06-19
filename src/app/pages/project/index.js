@@ -30,11 +30,19 @@ export default {
             if (!id) id = this.$route.params.id;
             return this.projects.find((v) => v.id === id);
         },
-        _runScript() {
-            console.log('start script', Date.now());
-            delete window.require.cache[this.project.path];
-            this.script = window.require(this.project.path);
-            console.log('end script', Date.now());
+        runScriptSync() {
+            if (this.state === 'progress') return;
+            this.state = 'progress';
+            // require('worker/robo');
+            // require('worker/robo/global');
+
+            setTimeout(() => { // wait for buttons animation
+                console.log('Start script', Date.now());
+                delete window.require.cache[this.project.path];
+                this.script = window.require(this.project.path);
+                console.log('Finish script', Date.now());
+                this.state = 'ready';
+            }, 250);
         },
         runScriptThread() {
             if (this.state === 'progress') return;
@@ -42,11 +50,14 @@ export default {
 
             // return setTimeoutPromise(300).then(() => {
             setTimeout(() => { // wait for buttons animation
-                console.info('Run script', Date.now());
+                console.info('Start script', Date.now());
                 var thread = child_process.fork(this.cwd+'.build/worker', [this.project.path], {silent: true});
                 thread.on('close', (code) => {
                     console.info('Finish script', Date.now());
                     this.state = 'ready';
+                });
+                thread.on('message', (args) => {
+                    console.log('Mess log:', ...args);
                 });
                 thread.stdout.on('data', (data) => {
                     this.panels.console = true;
