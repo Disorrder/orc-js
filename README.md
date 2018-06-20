@@ -2,6 +2,17 @@
 We will never be slaves!  
 При первом запуске и для обновления зависимостей - `npm i`
 
+## Development
+Необходимо запустить 2 процесса параллельно:  
+`npm run dev` - динамическая сборка  
+`npm start` - запуск приложения  
+
+## Production
+Необходимо запустить 2 команды по очереди:  
+`npm run build` - сборка кода (Webpack)  
+`npm run build-win` - сборка .exe файла  
+
+
 ## Native modules support
 Run this in PowerShell with Administrator:
  - `npm install --global --production windows-build-tools`
@@ -13,17 +24,7 @@ Run this in PowerShell with Administrator:
 
 Can help: http://stackoverflow.com/questions/32556295/npm-install-error-the-build-tools-for-v120-platform-toolset-v120-cannot
 
-## Development
-Необходимо запустить 2 процесса параллельно:  
-`npm run dev` - динамическая сборка  
-`npm start` - запуск приложения  
-
-## Production
-Необходимо запустить 2 команды по очереди:  
-`npm run build` - сборка кода (Webpack)  
-`npm run build-win` - сборка .exe файла  
-
-## OS X
+### OS X native modues
  - `sudo npm i -g node-gyp`
  - `node-gyp install`
  - check XCode: `xcode-select -p`. Can help: http://railsapps.github.io/xcode-command-line-tools.html
